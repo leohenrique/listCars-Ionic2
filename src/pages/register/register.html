@@ -1,0 +1,41 @@
+<!--
+  Generated template for the Cadastro page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Scheduling</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>{{ car.nome }}</h2>
+  <p>R$ {{ totalPrice }}</p>
+
+  <form (ngSubmit)="schedule()">
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input [(ngModel)]="scheduling.name" name="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Address</ion-label>
+      <ion-input [(ngModel)]="scheduling.address" name="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>E-mail</ion-label>
+      <ion-input [(ngModel)]="scheduling.email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Date</ion-label>
+      <ion-datetime [(ngModel)]="scheduling.date" name="date" displayFormat="DD/MM/YY"></ion-datetime>
+      
+    </ion-item>
+    <button ion-button block type="submit">Schedule</button>
+  </form>
+
+</ion-content>
