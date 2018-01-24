@@ -10,7 +10,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { SchedulingDao } from '../domain/scheduling/scheduling-dao';
-
+import { SchedulingPage } from '../pages/scheduling/scheduling';
+import { LoginPage } from '../pages/login/login';
+import { UserService } from '../domain/user/user-service';
+import { ProfilePage } from '../pages/profile/profile';
 
 export function provideStorage(){
   return new Storage();
@@ -22,7 +25,10 @@ export function provideStorage(){
     MyApp,
     HomePage,
     ListCarsPage,
-    RegisterPage
+    RegisterPage,
+    SchedulingPage,
+    LoginPage,
+    ProfilePage
   ],
   imports: [
     IonicStorageModule.forRoot({
@@ -38,12 +44,17 @@ export function provideStorage(){
     MyApp,
     HomePage,
     ListCarsPage,
-    RegisterPage
+    RegisterPage,
+    SchedulingPage,
+    LoginPage,
+    ProfilePage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SchedulingService,
-    SchedulingDao
+    {provide: Storage, useFactory: provideStorage},
+    SchedulingDao,
+    UserService
   ]
 })
 

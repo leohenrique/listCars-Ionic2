@@ -11,9 +11,13 @@ export class SchedulingService {
 
     }
 
+    private _createUri(scheduling:Scheduling){
+        return `https://aluracar.herokuapp.com/salvarpedido?carro=${scheduling.car.nome}&nome=${scheduling.name}&preco=${scheduling.value}&endereco=${scheduling.address}&email=${scheduling.email}&dataAgendamento=${scheduling.date}`;
+    }
+    
     schedule(scheduling: Scheduling){
 
-        let api = `https://aluracar.herokuapp.com/salvarpedido?carro=${scheduling.car.nome}&nome=${scheduling.name}&preco=${scheduling.value}&endereco=${scheduling.address}&email=${scheduling.email}&dataAgendamento=${scheduling.date}`;
+        let api = this._createUri(scheduling);
         
         return this._schedulingDao.isSchedulingDuplicated(scheduling).
             then(exists => {
@@ -26,7 +30,19 @@ export class SchedulingService {
                         .then(() => this._schedulingDao.save(scheduling))                    
                         .then(() => scheduling.confirmed )
 
-            } )
+            } );
+    }
+
+    resendSchedule(scheduling: Scheduling){
+        let api = this._createUri(scheduling);
+        
+        return this._http
+                    .get(api)
+                    .toPromise()
+                    .then(() => scheduling.confirmed = true, err => console.log(err) )
+                    .then(() => this._schedulingDao.save(scheduling))                    
+                    .then(() => scheduling.confirmed )
+        
     }
 
 }

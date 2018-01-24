@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Scheduling</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+      <ion-item-sliding *ngFor="let scheduling of schedules">        
+        <ion-item [class.fail]="!scheduling.confirmed" >
+          {{ scheduling.car.nome }} - {{ scheduling.value }}
+        </ion-item>
+        <ion-item-options side="right">
+          <button 
+            ion-button *ngIf="!scheduling.confirmed" (click)="resend(scheduling)">
+              Send Again
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+</ion-content>

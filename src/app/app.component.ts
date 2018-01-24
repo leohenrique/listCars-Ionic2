@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild} from '@angular/core';
+import { Platform, Nav} from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { HomePage } from '../pages/home/home';
-
+import { SchedulingPage } from '../pages/scheduling/scheduling';
+import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = HomePage;
+  rootPage = LoginPage;
+  
+  public appPages = [
+    { title: 'Scheduling', component: SchedulingPage },
+    { title: 'Profile', component: ProfilePage }
+  ];
+
+  @ViewChild(Nav) public nav: Nav;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -18,5 +26,9 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  openPage(pPage){
+    this.nav.push(pPage.component);
   }
 }
